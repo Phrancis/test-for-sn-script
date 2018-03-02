@@ -21,22 +21,22 @@
         LOCATION_INPUT : "sys_display.incident.location"
     };
 
-	// this global object will be used to hold the values
+    // this global object will be used to hold the values
     // from the ticket as it is being updated
-	const incidentData = {
-		incidentId : "",
-		caller : {}
-	};
+    const incidentData = {
+        incidentId : "",
+        caller : {}
+    };
 
-	const main = function() {
-		// uncomment for sanity check to make sure script is loaded,
+    const main = function() {
+        // uncomment for sanity check to make sure script is loaded,
         // background should appear pink in the frame:
-		//document.body.style.background = "#FFDDDD";
+        //document.body.style.background = "#FFDDDD";
 
-		prepareInputFields();
-		refreshCallerValues();
+        prepareInputFields();
+        refreshCallerValues();
         buttonShowCallerValues();
-	};
+    };
 
     // alias to shorten document.getElementById calls
     const getElemById = function(elemId) {
@@ -48,40 +48,40 @@
         getElemById(elemId).addEventListener("change", refreshCallerValues);
     };
 
-	// add listeners to the input fields
-	const prepareInputFields = function() {
+    // add listeners to the input fields
+    const prepareInputFields = function() {
         addRefreshListener(FIELD_IDS.COMPANY_INPUT);
-		addRefreshListener(FIELD_IDS.CALLER_NAME_INPUT);
-		addRefreshListener(FIELD_IDS.USER_ID_INPUT);
-		addRefreshListener(FIELD_IDS.PHONE_INPUT);
-		addRefreshListener(FIELD_IDS.LOCATION_INPUT);
-	};
+        addRefreshListener(FIELD_IDS.CALLER_NAME_INPUT);
+        addRefreshListener(FIELD_IDS.USER_ID_INPUT);
+        addRefreshListener(FIELD_IDS.PHONE_INPUT);
+        addRefreshListener(FIELD_IDS.LOCATION_INPUT);
+    };
 
-	// get the values from the input fields, to be used primarily by event listeners
-	const refreshCallerValues = function() {
+    // get the values from the input fields, to be used primarily by event listeners
+    const refreshCallerValues = function() {
         incidentData.incidentId = getElemById(FIELD_IDS.INCIDENT_ID).value;
         const caller = incidentData.caller;
         caller.company = getElemById(FIELD_IDS.COMPANY_INPUT).value;
-		caller.callerName = getElemById(FIELD_IDS.CALLER_NAME_INPUT).value;
-		caller.userId = getElemById(FIELD_IDS.USER_ID_INPUT).value;
-		caller.phone = getElemById(FIELD_IDS.PHONE_INPUT).value;
-		caller.location = getElemById(FIELD_IDS.LOCATION_INPUT).value;
-	};
+        caller.callerName = getElemById(FIELD_IDS.CALLER_NAME_INPUT).value;
+        caller.userId = getElemById(FIELD_IDS.USER_ID_INPUT).value;
+        caller.phone = getElemById(FIELD_IDS.PHONE_INPUT).value;
+        caller.location = getElemById(FIELD_IDS.LOCATION_INPUT).value;
+    };
 
     const buttonShowCallerValues = function() {
         const button = document.createElement("button");
-		button.innerHTML = "Show Caller Values";
+        button.innerHTML = "Show Caller Values";
         button.style.backgroundColor = "#AAFFAA";
         getElemById("incident.form_header").appendChild(button);
         button.onclick = function() {
-			const caller = incidentData.caller;
-			let text = "Incident: " + incidentData.incidentId + "\n";
+            const caller = incidentData.caller;
+            let text = "Incident: " + incidentData.incidentId + "\n";
             // Concatenate caller fields and values for the output
-			for (let val in caller) {
-				text += val + ": " + caller[val] + "\n";
-			}
-			alert(text);
-		};
+            for (let val in caller) {
+                text += val + ": " + caller[val] + "\n";
+            }
+            alert(text);
+        };
     };
 
     // Run main program

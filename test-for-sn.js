@@ -4,69 +4,87 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       Francis Veilleux-Gaboury
-// @include      file:///C:/Users/fv189884/Documents/sn-iframe.html
-// @match        file:///C:/Users/fv189884/Documents/sn-iframe.html
+// @include      file:///C:/Scripts/service-now-automation-test/sn-iframe.html
+// @match        file:///C:/Scripts/service-now-automation-test/sn-iframe.html
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
-	
-	// Fetch input fields from the DOM
-	const COMPANY_INPUT = document.getElementById("sys_display.incident.company");
-	const CALLER_NAME_INPUT = document.getElementById("sys_display.incident.caller_id");
-	const USER_ID_INPUT = document.getElementById("sys_display.incident.caller_id.user_id");
-	const PHONE_INPUT = document.getElementById("sys_display.incident.u_alternate_phone");
-	const LOCATION_INPUT = document.getElementById("sys_display.incident.location");
-	
-	// this object will be used to hold the values from the ticket
-	let incidentData = { 
-		incidentId : null,
-		caller : {} 
-	};
-	
-	
-	function main() {
-		// sanity check
-		document.body.style.background = "#EEFFEE";
-		prepareInputFields();
-		refreshValues();
 
-		let button = document.createElement("button");
-		document.body.appendChild(button);
+    const FIELD_IDS = {
+        INCIDENT_ID : "sys_display.incident.id",
+        COMPANY_INPUT : "sys_display.incident.company",
+        CALLER_NAME_INPUT : "sys_display.incident.caller_id",
+        USER_ID_INPUT : "sys_display.incident.caller_id.user_id",
+        PHONE_INPUT : "sys_display.incident.u_alternate_phone",
+        LOCATION_INPUT : "sys_display.incident.location"
+    };
+
+	// this global object will be used to hold the values
+    // from the ticket as it is being updated
+	const incidentData = {
+		incidentId : "",
+		caller : {}
+	};
+
+	const main = function() {
+		// uncomment for sanity check to make sure script is loaded,
+        // background should appear pink in the frame:
+		//document.body.style.background = "#FFDDDD";
+
+		prepareInputFields();
+		refreshCallerValues();
+        buttonShowCallerValues();
+	};
+
+    // alias to shorten document.getElementById calls
+    const getElemById = function(elemId) {
+        return document.getElementById(elemId);
+    };
+
+    // alias to shorten addEventListener("change", refreshCallerValues) calls
+    const addRefreshListener = function(elemId) {
+        getElemById(elemId).addEventListener("change", refreshCallerValues);
+    };
+
+	// add listeners to the input fields
+	const prepareInputFields = function() {
+        addRefreshListener(FIELD_IDS.COMPANY_INPUT);
+		addRefreshListener(FIELD_IDS.CALLER_NAME_INPUT);
+		addRefreshListener(FIELD_IDS.USER_ID_INPUT);
+		addRefreshListener(FIELD_IDS.PHONE_INPUT);
+		addRefreshListener(FIELD_IDS.LOCATION_INPUT);
+	};
+
+	// get the values from the input fields, to be used primarily by event listeners
+	const refreshCallerValues = function() {
+        incidentData.incidentId = getElemById(FIELD_IDS.INCIDENT_ID).value;
+        const caller = incidentData.caller;
+        caller.company = getElemById(FIELD_IDS.COMPANY_INPUT).value;
+		caller.callerName = getElemById(FIELD_IDS.CALLER_NAME_INPUT).value;
+		caller.userId = getElemById(FIELD_IDS.USER_ID_INPUT).value;
+		caller.phone = getElemById(FIELD_IDS.PHONE_INPUT).value;
+		caller.location = getElemById(FIELD_IDS.LOCATION_INPUT).value;
+	};
+
+    const buttonShowCallerValues = function() {
+        const button = document.createElement("button");
 		button.innerHTML = "Show Caller Values";
-		button.onclick = function() {
+        button.style.backgroundColor = "#AAFFAA";
+        getElemById("incident.form_header").appendChild(button);
+        button.onclick = function() {
 			const caller = incidentData.caller;
-			let text = "";
-			
+			let text = "Incident: " + incidentData.incidentId + "\n";
+            // Concatenate caller fields and values for the output
 			for (let val in caller) {
-				if (caller.hasOwnProperty(val)) {
-					text += val + ": " + caller[val] + "\n";
-				}
-			}		
-			
+				text += val + ": " + caller[val] + "\n";
+			}
 			alert(text);
 		};
-	}
-	
-	// add listeners to the input fields
-	function prepareInputFields() {
-		COMPANY_INPUT.addEventListener("change", refreshCallerValues);
-		CALLER_NAME_INPUT.addEventListener("change", refreshCallerValues);
-		USER_ID_INPUT.addEventListener("change", refreshCallerValues);
-		PHONE_INPUT.addEventListener("change", refreshCallerValues);
-		LOCATION_INPUT.addEventListener("change", refreshCallerValues);
-	}
-	
-	// get the values from the input fields, to be used primarily by event listeners
-	function refreshCallerValues() {
-        incidentData.caller.company = COMPANY_INPUT.value;
-		incidentData.caller.callerName = CALLER_NAME_INPUT.value;
-		incidentData.caller.userId = USER_ID_INPUT.value;
-		incidentData.caller.phone = PHONE_INPUT.value;
-		incidentData.caller.location = LOCATION_INPUT.value;
-	}
-	
-	main();
+    };
+
+    // Run main program
+    main();
 
 })();

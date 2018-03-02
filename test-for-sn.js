@@ -77,8 +77,8 @@
             const caller = incidentData.caller;
             let text = "Incident: " + incidentData.incidentId + "\n";
             // Concatenate caller fields and values for the output
-            for (let val in caller) {
-                text += val + ": " + caller[val] + "\n";
+            for (let key in caller) {
+                text += key + ": " + caller[key] + "\n";
             }
             alert(text);
         };

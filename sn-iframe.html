@@ -1,89 +1,89 @@
 <!DOCTYPE html>
 <html class="navpage-main">
-	<head>
-		<title>Incident - Service Now</title>
-	</head>
+    <head>
+        <title>Incident - Service Now</title>
+    </head>
 
-	<script type="text/javascript">
-		// populate a dummy Incident ID
-		function generateIncidentId() {
-			elem = document.getElementById('sys_display.incident.id').value = "INC12345678";
-		}
-	</script>
+    <script type="text/javascript">
+        // populate a dummy Incident ID
+        function generateIncidentId() {
+            elem = document.getElementById('sys_display.incident.id').value = "INC12345678";
+        }
+    </script>
 
-	<body>
-		<div id="incident.form_header">
-			<span>
-				<nav>
-					<span><button title="Back">Back</button></span>
-					<h2>
-						<span>Incident</span>			
-					</h2>
-				</nav>
-			</span>
-			<span class="ui_action_container_primary">
-				<button type="submit" onclick="generateIncidentId()">
-					Save
-				</button>
-			</span>
-		</div> <!-- /incident.form_header -->
-		
-		<!-- FORM STARTS HERE -->
-		<div id="incident.form_scroll">
-			<form id="incident.do">
-				<span id="section_tab">
+    <body>
+        <div id="incident.form_header">
+            <span>
+                <nav>
+                    <span><button title="Back">Back</button></span>
+                    <h2>
+                        <span>Incident</span>            
+                    </h2>
+                </nav>
+            </span>
+            <span class="ui_action_container_primary">
+                <button type="submit" onclick="generateIncidentId()">
+                    Save
+                </button>
+            </span>
+        </div> <!-- /incident.form_header -->
+        
+        <!-- FORM STARTS HERE -->
+        <div id="incident.form_scroll">
+            <form id="incident.do">
+                <span id="section_tab">
 
-					<!-- INCIDENT ID -->
-					<div id="element.incident.id">
-						<label for="sys_display.incident.id">Incident</label>
-						<input id="sys_display.incident.id" value="" style="background-color: #DDDDDD" readonly>
-					</div>
-					<!-- COMPANY -->
-					<div id="element.incident.company">
-						<label for="sys_display.incident.company">Company *</label>
-						<input id="sys_display.incident.company" value="Texas Children's Hospital">
-					</div>
-					<!-- CALLER -->
-					<div id="element.incident.caller_id">
-						<label for="sys_display.incident.caller_id">Caller *</label>
-						<input id="sys_display.incident.caller_id" value="">
-					</div>
-					<!-- USER ID -->
-					<div id="element.incident.caller_id.user_id">
-						<label for="sys_display.incident.caller_id.user_id">User ID</label>
-						<input id="sys_display.incident.caller_id.user_id" value="">
-					</div>					
-					<!-- PHONE -->
-					<div id="element.incident.u_alternate_phone">
-						<label for="sys_display.incident.u_alternate_phone">Alternate phone</label>
-						<input id="sys_display.incident.u_alternate_phone" value="">
-					</div>
-					<!-- LOCATION -->
-					<div id="element.incident.location">
-						<label for="sys_display.incident.location">Location *</label>
-						<input id="sys_display.incident.location" value="">
-					</div>
-					<!-- CONTACT TYPE -->
-					<div id="element.incident.short_description">
-						<label for="sys_display.incident.contact_type">Contact Type *</label>
-						<select id="sys_display.incident.contact_type">
-							<option value="default">-- Select --</option>
-							<option value="phone">Phone</option>
-							<option value="email">Email</option>
-							<option value="self_service">Self-Service</option>
-						</select>
-					</div>
-					<!-- SHORT DESCRIPTION -->
-					<div id="element.incident.short_description">
-						<label for="sys_display.incident.short_description">Short Description *</label>
-						<input id="sys_display.incident.short_description" value="">
-					</div>
+                    <!-- INCIDENT ID -->
+                    <div id="element.incident.id">
+                        <label for="sys_display.incident.id">Incident</label>
+                        <input id="sys_display.incident.id" value="" style="background-color: #DDDDDD" readonly>
+                    </div>
+                    <!-- COMPANY -->
+                    <div id="element.incident.company">
+                        <label for="sys_display.incident.company">Company *</label>
+                        <input id="sys_display.incident.company" value="Texas Children's Hospital">
+                    </div>
+                    <!-- CALLER -->
+                    <div id="element.incident.caller_id">
+                        <label for="sys_display.incident.caller_id">Caller *</label>
+                        <input id="sys_display.incident.caller_id" value="">
+                    </div>
+                    <!-- USER ID -->
+                    <div id="element.incident.caller_id.user_id">
+                        <label for="sys_display.incident.caller_id.user_id">User ID</label>
+                        <input id="sys_display.incident.caller_id.user_id" value="">
+                    </div>                    
+                    <!-- PHONE -->
+                    <div id="element.incident.u_alternate_phone">
+                        <label for="sys_display.incident.u_alternate_phone">Alternate phone</label>
+                        <input id="sys_display.incident.u_alternate_phone" value="">
+                    </div>
+                    <!-- LOCATION -->
+                    <div id="element.incident.location">
+                        <label for="sys_display.incident.location">Location *</label>
+                        <input id="sys_display.incident.location" value="">
+                    </div>
+                    <!-- CONTACT TYPE -->
+                    <div id="element.incident.short_description">
+                        <label for="sys_display.incident.contact_type">Contact Type *</label>
+                        <select id="sys_display.incident.contact_type">
+                            <option value="default">-- Select --</option>
+                            <option value="phone">Phone</option>
+                            <option value="email">Email</option>
+                            <option value="self_service">Self-Service</option>
+                        </select>
+                    </div>
+                    <!-- SHORT DESCRIPTION -->
+                    <div id="element.incident.short_description">
+                        <label for="sys_display.incident.short_description">Short Description *</label>
+                        <input id="sys_display.incident.short_description" value="">
+                    </div>
 
-					
-				</span> <!-- /section_tab -->
-			</form>
-		</div> <!-- /incident.form_scroll -->
-		
-		
-	</body>
+                    
+                </span> <!-- /section_tab -->
+            </form>
+        </div> <!-- /incident.form_scroll -->
+        
+        
+    </body>
 </html>

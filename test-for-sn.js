@@ -40,8 +40,7 @@
         const button = document.createElement("button");
         button.innerHTML = "Show Caller Values";
         button.style.backgroundColor = "#AAFFAA";
-        // document.getElementById("incident.form_header").appendChild(button);
-        document.getElementById("body").appendChild(button);
+        document.getElementById("incident.form_header").appendChild(button);
 
         button.onclick = function() {
             let text = zip([INCIDENT_NAMES, INCIDENT_VALUES.map(o => o.value)])

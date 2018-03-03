@@ -28,9 +28,16 @@
         caller : {}
     };
 
+    /*
+    Entry point of the user script. 
+    Sets up the local values in the browser from the DOM 
+    and starts other functions. 
+    */
     const main = function() {
-        // uncomment for sanity check to make sure script is loaded,
-        // background should appear pink in the frame:
+        /* 
+        uncomment for sanity check to make sure script is loaded,
+        background should appear pink in the frame: 
+        */
         //document.body.style.background = "#FFDDDD";
 
         prepareInputFields();
@@ -38,17 +45,23 @@
         buttonShowCallerValues();
     };
 
-    // alias to shorten document.getElementById calls
+    /* 
+    Alias function to shorten `document.getElementById` calls 
+    */
     const getElemById = function(elemId) {
         return document.getElementById(elemId);
     };
 
-    // alias to shorten addEventListener("change", refreshCallerValues) calls
+    /* 
+    Alias function to shorten `addEventListener("change", refreshCallerValues)` calls 
+    */
     const addRefreshListener = function(elemId) {
         getElemById(elemId).addEventListener("change", refreshCallerValues);
     };
 
-    // add listeners to the input fields
+    /* 
+    Adds listeners to the input fields 
+    */
     const prepareInputFields = function() {
         addRefreshListener(FIELD_IDS.COMPANY_INPUT);
         addRefreshListener(FIELD_IDS.CALLER_NAME_INPUT);
@@ -57,7 +70,9 @@
         addRefreshListener(FIELD_IDS.LOCATION_INPUT);
     };
 
-    // get the values from the input fields, to be used primarily by event listeners
+    /* 
+    Get values from the input fields, to be used primarily by event listeners.
+    */
     const refreshCallerValues = function() {
         incidentData.incidentId = getElemById(FIELD_IDS.INCIDENT_ID).value;
         const caller = incidentData.caller;
@@ -68,6 +83,9 @@
         caller.location = getElemById(FIELD_IDS.LOCATION_INPUT).value;
     };
 
+    /*
+    Debugging routine to show an alert that displays the current values in memory.
+    */
     const buttonShowCallerValues = function() {
         const button = document.createElement("button");
         button.innerHTML = "Show Caller Values";

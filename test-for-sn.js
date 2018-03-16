@@ -12,21 +12,29 @@
 (function() {
     'use strict';
 
-    const FIELD_IDS = {
-        INCIDENT_ID : "sys_display.incident.id",
-        COMPANY_INPUT : "sys_display.incident.company",
-        CALLER_NAME_INPUT : "sys_display.incident.caller_id",
-        USER_ID_INPUT : "sys_display.incident.caller_id.user_id",
-        PHONE_INPUT : "sys_display.incident.u_alternate_phone",
-        LOCATION_INPUT : "sys_display.incident.location"
-    };
+    const zip = function(rows) {
+        return rows[0].map((_, i) => rows.map(row => row[i]))
+    }
 
-    // this global object will be used to hold the values
-    // from the ticket as it is being updated
-    const incidentData = {
-        incidentId : "",
-        caller : {}
-    };
+    const INCIDENT_NAMES = [
+        'Incident',
+        'company',
+        'caller',
+        'user_id',
+        'phone_input',
+        'location'
+    ];
+
+    const INCIDENT_VALUES = [
+        'id',
+        'company',
+        'caller_id',
+        'caller_id.user_id',
+        'u_alternate_phone',
+        'location'
+    ]
+        .map(v => 'sys_display.incident.' + v)
+        .map(v => document.getElementById(v));
 
     /*
     Entry point of the user script. 
@@ -34,6 +42,7 @@
     and starts other functions. 
     */
     const main = function() {
+
         /* 
         uncomment for sanity check to make sure script is loaded,
         background should appear pink in the frame: 
@@ -90,19 +99,16 @@
         const button = document.createElement("button");
         button.innerHTML = "Show Caller Values";
         button.style.backgroundColor = "#AAFFAA";
-        getElemById("incident.form_header").appendChild(button);
+        document.getElementById("incident.form_header").appendChild(button);
+
         button.onclick = function() {
-            const caller = incidentData.caller;
-            let text = "Incident: " + incidentData.incidentId + "\n";
-            // Concatenate caller fields and values for the output
-            for (let key in caller) {
-                text += key + ": " + caller[key] + "\n";
-            }
+            let text = zip([INCIDENT_NAMES, INCIDENT_VALUES.map(o => o.value)])
+                .map(([key, value]) => key + ": " + value + "\n")
+                .join('\n');
             alert(text);
         };
     };
 
-    // Run main program
     main();
 
 })();
